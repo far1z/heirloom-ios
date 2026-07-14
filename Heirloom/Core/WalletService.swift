@@ -24,6 +24,15 @@ struct LockStatus: Equatable {
     }
 }
 
+/// Row model for the transaction list.
+struct TxSummary: Identifiable, Equatable {
+    let id: String
+    let netSats: Int64
+    let confirmedHeight: UInt32?
+    let timestamp: UInt64?
+    var isConfirmed: Bool { confirmedHeight != nil }
+}
+
 /// A prepared, signed-but-not-broadcast transaction with display info.
 struct PreparedTransaction {
     let psbt: Psbt
@@ -119,6 +128,31 @@ final class WalletService {
     func balance() -> Balance { wallet.balance() }
 
     func transactionsList() -> [CanonicalTx] { wallet.transactions() }
+
+    /// Display-friendly rows for the transaction list, newest first.
+    func txSummaries() -> [TxSummary] {
+        wallet.transactions().map { ctx in
+            let values = wallet.sentAndReceived(tx: ctx.transaction)
+            let net = Int64(values.received.toSat()) - Int64(values.sent.toSat())
+            switch ctx.chainPosition {
+            case let .confirmed(cbt, _):
+                return TxSummary(
+                    id: ctx.transaction.computeTxid().description,
+                    netSats: net,
+                    confirmedHeight: cbt.blockId.height,
+                    timestamp: cbt.confirmationTime
+                )
+            case let .unconfirmed(ts):
+                return TxSummary(
+                    id: ctx.transaction.computeTxid().description,
+                    netSats: net,
+                    confirmedHeight: nil,
+                    timestamp: ts
+                )
+            }
+        }
+        .sorted { ($0.confirmedHeight ?? .max) > ($1.confirmedHeight ?? .max) }
+    }
 
     func nextReceiveAddress() throws -> AddressInfo {
         let info = wallet.revealNextAddress(keychain: .external)

@@ -8,8 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		00015C9F4DCFDD6976DBA1A0 /* SmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45A3D29DFC058C3FB6D9539 /* SmokeTests.swift */; };
+		000D022972579D0F570556FD /* DelayPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19429DAFB1AD0136CC878BCE /* DelayPreset.swift */; };
+		0DB56465791B0C3F839F98D1 /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EAD51B5ADCF0E96CAE4071 /* WalletManager.swift */; };
+		20390199DB35EB97FEC55F2D /* AppNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECCDDD1E4A441E0EB4064D1 /* AppNetwork.swift */; };
+		2FF8473AC543286FE775D15B /* RecoveryKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840A40DB12734637B10E2C /* RecoveryKit.swift */; };
+		30A6BC3B167CA63AE5C7E1E6 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86CBE8F401BB5998332C0FF /* RootView.swift */; };
+		318849E695DF6B51E552A967 /* HeartbeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8FAF185C19EF0E77F131DB /* HeartbeatView.swift */; };
+		38183C8C2573A82F396B2FD0 /* ReceiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08177B04EE1A10B356AC992 /* ReceiveView.swift */; };
 		3A7C46360FC8CC6F799C7A30 /* HeirloomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5F87A8468038F3D3FDC4A0 /* HeirloomApp.swift */; };
+		494F9FFB086801A5E15E962D /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD64937577DE6A044CDD015 /* WelcomeView.swift */; };
+		4A6BC078E77B77D287D8E2F8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDCE60A0168F5243AE04D0 /* HomeView.swift */; };
+		4C1C8E657FDBCAC78F99CC5E /* SendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985F90A27247128ED95C1624 /* SendView.swift */; };
+		6E2754DBD405A68CB3CA90EB /* InheritanceDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4C32F240C387F7EEBD25E3 /* InheritanceDescriptor.swift */; };
+		7957CBBECF4855229AA98352 /* PolicyPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED68E20950050C281DB76E1 /* PolicyPaths.swift */; };
 		7AA3CB42BF64EEE963168293 /* BitcoinDevKit in Frameworks */ = {isa = PBXBuildFile; productRef = BFB13209C62FE9CCCE972BDD /* BitcoinDevKit */; };
+		8201A0765F9101FB3E7961E9 /* ClaimView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27372A18635DAFD5014E8F4 /* ClaimView.swift */; };
+		8EE57239348ECCAB845F7BAF /* WalletMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E05507E9B17C720EF4870 /* WalletMeta.swift */; };
+		9BF7514527D54C1262F715C4 /* WalletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB2C5E19449F77E206B852A /* WalletService.swift */; };
+		9D7208ED9469047E75418F52 /* HeirRecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312789043FFEB38BCC886408 /* HeirRecoveryView.swift */; };
+		B558D3CFD07D152B6FF21AEE /* KeyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC0653E37D20C2DC2AFEEA0 /* KeyService.swift */; };
+		BBB2667106AD9BA0E17F4F20 /* HeirloomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27BAEE80AFA52257B957C14 /* HeirloomError.swift */; };
+		BF1081A69EBD8E37D9B6396C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811153B8FF4B89F5F7270AB /* Theme.swift */; };
+		EF309334B00DEE3BB038AA1F /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F021B48140156947B064D0B1 /* KeychainStore.swift */; };
+		F3EBAFC7C0A195E9EE6A5BC0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C172D4EB3D58D18F6707BA05 /* SettingsView.swift */; };
+		FBB5B22B9E7521347D8E4E0B /* OwnerWizardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CF6F5F18F26FC98B8703AF /* OwnerWizardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,10 +45,32 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		016E05507E9B17C720EF4870 /* WalletMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMeta.swift; sourceTree = "<group>"; };
+		19429DAFB1AD0136CC878BCE /* DelayPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPreset.swift; sourceTree = "<group>"; };
+		1B8FAF185C19EF0E77F131DB /* HeartbeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartbeatView.swift; sourceTree = "<group>"; };
+		28EAD51B5ADCF0E96CAE4071 /* WalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
+		312789043FFEB38BCC886408 /* HeirRecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeirRecoveryView.swift; sourceTree = "<group>"; };
+		3BD64937577DE6A044CDD015 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		4E840A40DB12734637B10E2C /* RecoveryKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryKit.swift; sourceTree = "<group>"; };
+		56CF6F5F18F26FC98B8703AF /* OwnerWizardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerWizardView.swift; sourceTree = "<group>"; };
+		60BDCE60A0168F5243AE04D0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		6ED68E20950050C281DB76E1 /* PolicyPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyPaths.swift; sourceTree = "<group>"; };
+		6FC0653E37D20C2DC2AFEEA0 /* KeyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyService.swift; sourceTree = "<group>"; };
 		7783D80B7B8AD9C0FBDC0EF7 /* Heirloom.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Heirloom.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8811153B8FF4B89F5F7270AB /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		8EB2C5E19449F77E206B852A /* WalletService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletService.swift; sourceTree = "<group>"; };
+		985F90A27247128ED95C1624 /* SendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendView.swift; sourceTree = "<group>"; };
 		9BF0133ACFC189F16BE13481 /* HeirloomTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HeirloomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E4C32F240C387F7EEBD25E3 /* InheritanceDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InheritanceDescriptor.swift; sourceTree = "<group>"; };
 		AE5F87A8468038F3D3FDC4A0 /* HeirloomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeirloomApp.swift; sourceTree = "<group>"; };
+		C172D4EB3D58D18F6707BA05 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C45A3D29DFC058C3FB6D9539 /* SmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeTests.swift; sourceTree = "<group>"; };
+		CECCDDD1E4A441E0EB4064D1 /* AppNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNetwork.swift; sourceTree = "<group>"; };
+		D08177B04EE1A10B356AC992 /* ReceiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveView.swift; sourceTree = "<group>"; };
+		E27BAEE80AFA52257B957C14 /* HeirloomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeirloomError.swift; sourceTree = "<group>"; };
+		F021B48140156947B064D0B1 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		F27372A18635DAFD5014E8F4 /* ClaimView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimView.swift; sourceTree = "<group>"; };
+		F86CBE8F401BB5998332C0FF /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +85,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		48DC1F65D828B0C87BB8DD7B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				F86CBE8F401BB5998332C0FF /* RootView.swift */,
+				C172D4EB3D58D18F6707BA05 /* SettingsView.swift */,
+				8811153B8FF4B89F5F7270AB /* Theme.swift */,
+				B8664C07B414B7E967FF561B /* Home */,
+				584137B210B3A4062F9B6265 /* Onboarding */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		584137B210B3A4062F9B6265 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				312789043FFEB38BCC886408 /* HeirRecoveryView.swift */,
+				56CF6F5F18F26FC98B8703AF /* OwnerWizardView.swift */,
+				3BD64937577DE6A044CDD015 /* WelcomeView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		5BB257FBB97C951B5E07EF21 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -48,6 +114,18 @@
 				9BF0133ACFC189F16BE13481 /* HeirloomTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B8664C07B414B7E967FF561B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F27372A18635DAFD5014E8F4 /* ClaimView.swift */,
+				1B8FAF185C19EF0E77F131DB /* HeartbeatView.swift */,
+				60BDCE60A0168F5243AE04D0 /* HomeView.swift */,
+				D08177B04EE1A10B356AC992 /* ReceiveView.swift */,
+				985F90A27247128ED95C1624 /* SendView.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		C8DB37E69CA5188AD27215A8 /* HeirloomTests */ = {
@@ -66,6 +144,24 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		CE482F3082BC4015FE64856D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				CECCDDD1E4A441E0EB4064D1 /* AppNetwork.swift */,
+				19429DAFB1AD0136CC878BCE /* DelayPreset.swift */,
+				E27BAEE80AFA52257B957C14 /* HeirloomError.swift */,
+				9E4C32F240C387F7EEBD25E3 /* InheritanceDescriptor.swift */,
+				F021B48140156947B064D0B1 /* KeychainStore.swift */,
+				6FC0653E37D20C2DC2AFEEA0 /* KeyService.swift */,
+				6ED68E20950050C281DB76E1 /* PolicyPaths.swift */,
+				4E840A40DB12734637B10E2C /* RecoveryKit.swift */,
+				28EAD51B5ADCF0E96CAE4071 /* WalletManager.swift */,
+				016E05507E9B17C720EF4870 /* WalletMeta.swift */,
+				8EB2C5E19449F77E206B852A /* WalletService.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		D8B643938B68CF6D98D144FE = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +175,8 @@
 			isa = PBXGroup;
 			children = (
 				CBCDD79657CE35AFEF0321A4 /* App */,
+				CE482F3082BC4015FE64856D /* Core */,
+				48DC1F65D828B0C87BB8DD7B /* UI */,
 			);
 			path = Heirloom;
 			sourceTree = "<group>";
@@ -168,7 +266,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20390199DB35EB97FEC55F2D /* AppNetwork.swift in Sources */,
+				8201A0765F9101FB3E7961E9 /* ClaimView.swift in Sources */,
+				000D022972579D0F570556FD /* DelayPreset.swift in Sources */,
+				318849E695DF6B51E552A967 /* HeartbeatView.swift in Sources */,
+				9D7208ED9469047E75418F52 /* HeirRecoveryView.swift in Sources */,
 				3A7C46360FC8CC6F799C7A30 /* HeirloomApp.swift in Sources */,
+				BBB2667106AD9BA0E17F4F20 /* HeirloomError.swift in Sources */,
+				4A6BC078E77B77D287D8E2F8 /* HomeView.swift in Sources */,
+				6E2754DBD405A68CB3CA90EB /* InheritanceDescriptor.swift in Sources */,
+				B558D3CFD07D152B6FF21AEE /* KeyService.swift in Sources */,
+				EF309334B00DEE3BB038AA1F /* KeychainStore.swift in Sources */,
+				FBB5B22B9E7521347D8E4E0B /* OwnerWizardView.swift in Sources */,
+				7957CBBECF4855229AA98352 /* PolicyPaths.swift in Sources */,
+				38183C8C2573A82F396B2FD0 /* ReceiveView.swift in Sources */,
+				2FF8473AC543286FE775D15B /* RecoveryKit.swift in Sources */,
+				30A6BC3B167CA63AE5C7E1E6 /* RootView.swift in Sources */,
+				4C1C8E657FDBCAC78F99CC5E /* SendView.swift in Sources */,
+				F3EBAFC7C0A195E9EE6A5BC0 /* SettingsView.swift in Sources */,
+				BF1081A69EBD8E37D9B6396C /* Theme.swift in Sources */,
+				0DB56465791B0C3F839F98D1 /* WalletManager.swift in Sources */,
+				8EE57239348ECCAB845F7BAF /* WalletMeta.swift in Sources */,
+				9BF7514527D54C1262F715C4 /* WalletService.swift in Sources */,
+				494F9FFB086801A5E15E962D /* WelcomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
