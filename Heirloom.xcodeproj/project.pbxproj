@@ -32,6 +32,7 @@
 		BF1081A69EBD8E37D9B6396C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811153B8FF4B89F5F7270AB /* Theme.swift */; };
 		DFE046493B3F874D5F6A7F28 /* DescriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CE8A490E66BE81860643FE /* DescriptorTests.swift */; };
 		E02DA86AACD9A10F2E29CBD8 /* ChainClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F56D3F4F72FD6F23214F4CE /* ChainClient.swift */; };
+		EE157735E91A036F24DDB405 /* RegtestLifecycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94009829CA89C5574B27FBF /* RegtestLifecycleTests.swift */; };
 		EF309334B00DEE3BB038AA1F /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F021B48140156947B064D0B1 /* KeychainStore.swift */; };
 		F3EBAFC7C0A195E9EE6A5BC0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C172D4EB3D58D18F6707BA05 /* SettingsView.swift */; };
 		FBB5B22B9E7521347D8E4E0B /* OwnerWizardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CF6F5F18F26FC98B8703AF /* OwnerWizardView.swift */; };
@@ -68,6 +69,7 @@
 		9BF0133ACFC189F16BE13481 /* HeirloomTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HeirloomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4C32F240C387F7EEBD25E3 /* InheritanceDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InheritanceDescriptor.swift; sourceTree = "<group>"; };
 		A905C620477324142BCD5188 /* TestFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFixtures.swift; sourceTree = "<group>"; };
+		A94009829CA89C5574B27FBF /* RegtestLifecycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegtestLifecycleTests.swift; sourceTree = "<group>"; };
 		AE5F87A8468038F3D3FDC4A0 /* HeirloomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeirloomApp.swift; sourceTree = "<group>"; };
 		B0CE8A490E66BE81860643FE /* DescriptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptorTests.swift; sourceTree = "<group>"; };
 		C172D4EB3D58D18F6707BA05 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			children = (
 				B0CE8A490E66BE81860643FE /* DescriptorTests.swift */,
 				1A6DFEB4172A34A8218955DD /* PolicyAndTransactionTests.swift */,
+				A94009829CA89C5574B27FBF /* RegtestLifecycleTests.swift */,
 				A905C620477324142BCD5188 /* TestFixtures.swift */,
 			);
 			path = HeirloomTests;
@@ -308,6 +311,7 @@
 			files = (
 				DFE046493B3F874D5F6A7F28 /* DescriptorTests.swift in Sources */,
 				A8AAF718452D7E6EDD12784A /* PolicyAndTransactionTests.swift in Sources */,
+				EE157735E91A036F24DDB405 /* RegtestLifecycleTests.swift in Sources */,
 				4159A252FD95F78D27538DA7 /* TestFixtures.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -356,7 +360,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -422,7 +426,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

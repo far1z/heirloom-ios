@@ -16,7 +16,9 @@ settings:
     SWIFT_VERSION: "5.10"
     ENABLE_USER_SCRIPT_SANDBOXING: true
     CODE_SIGN_STYLE: Automatic
-    CODE_SIGNING_ALLOWED: "NO"
+    # Ad-hoc ("sign to run locally") signing: no team required, but the app
+    # still gets its application-identifier entitlement so the Keychain works.
+    CODE_SIGN_IDENTITY: "-"
 
 targets:
   Heirloom:
