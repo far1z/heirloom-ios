@@ -163,6 +163,6 @@ final class WalletManager: ObservableObject {
         meta.esploraURL = url
         try WalletMetaStore.save(meta)
         self.meta = meta
-        service.updateEsploraURL(url)
+        try service.updateEsploraURL(url)
     }
 }

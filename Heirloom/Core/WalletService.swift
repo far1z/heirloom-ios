@@ -53,7 +53,7 @@ final class WalletService {
     let meta: WalletMeta
     private let wallet: Wallet
     private let persister: Persister
-    private var esplora: EsploraClient
+    private var chain: ChainClient
 
     // MARK: - Init
 
@@ -62,44 +62,44 @@ final class WalletService {
     /// The descriptor is rebuilt deterministically from the local seed (Keychain) +
     /// counterparty public key + delay. BDK persists chain data in SQLite; if the
     /// database already exists we `load`, otherwise `create`.
-    init(meta: WalletMeta) throws {
+    ///
+    /// - Parameter dbPath: test override for the SQLite path (defaults to the
+    ///   app-standard per-role location).
+    init(meta: WalletMeta, dbPath: String? = nil) throws {
         self.meta = meta
 
         let seedKey: KeychainStore.Key = meta.role == .owner ? .ownerMnemonic : .heirMnemonic
         let mnemonic = try KeyService.loadMnemonic(seedKey)
         let signerKey = try KeyService.accountSecretKey(mnemonic: mnemonic, network: meta.network)
 
-        let descriptorString = try InheritanceDescriptor.descriptorString(
+        let pair = try InheritanceDescriptor.descriptorStrings(
             signerKey: signerKey,
             otherKey: meta.counterpartyKey,
             signerIsOwner: meta.role == .owner,
             delayBlocks: meta.delayBlocks
         )
-        let twoPath = try InheritanceDescriptor.parse(descriptorString, network: meta.network)
+        let external = try InheritanceDescriptor.parse(pair.external, network: meta.network)
+        let change = try InheritanceDescriptor.parse(pair.change, network: meta.network)
 
-        let dbPath = WalletMetaStore.walletDBPath(role: meta.role)
+        let dbPath = dbPath ?? WalletMetaStore.walletDBPath(role: meta.role)
         let dbExists = FileManager.default.fileExists(atPath: dbPath)
         self.persister = try Persister.newSqlite(path: dbPath)
 
-        let singles = try twoPath.toSingleDescriptors()
-        guard singles.count == 2 else {
-            throw HeirloomError.walletNotInitialized
-        }
         if dbExists {
             self.wallet = try Wallet.load(
-                descriptor: singles[0],
-                changeDescriptor: singles[1],
+                descriptor: external,
+                changeDescriptor: change,
                 persister: persister
             )
         } else {
             self.wallet = try Wallet(
-                descriptor: singles[0],
-                changeDescriptor: singles[1],
+                descriptor: external,
+                changeDescriptor: change,
                 network: meta.network.bdkNetwork,
                 persister: persister
             )
         }
-        self.esplora = EsploraClient(url: meta.esploraURL)
+        self.chain = try ChainClient(endpoint: meta.esploraURL)
 
         // Cross-check: the CSV delay embedded in the loaded wallet's policy MUST
         // match the configured delay. A mismatch means corrupted or tampered state.
@@ -111,8 +111,8 @@ final class WalletService {
         }
     }
 
-    func updateEsploraURL(_ url: String) {
-        esplora = EsploraClient(url: url)
+    func updateEsploraURL(_ url: String) throws {
+        chain = try ChainClient(endpoint: url)
     }
 
     // MARK: - Introspection
@@ -164,10 +164,10 @@ final class WalletService {
 
     // MARK: - Sync
 
-    /// Incremental sync of revealed scripts against the configured Esplora server.
+    /// Incremental sync of revealed scripts against the configured chain server.
     func sync() throws {
         let request = try wallet.startSyncWithRevealedSpks().build()
-        let update = try esplora.sync(request: request, parallelRequests: 4)
+        let update = try chain.sync(request: request)
         try wallet.applyUpdate(update: update)
         _ = try wallet.persist(persister: persister)
     }
@@ -175,26 +175,31 @@ final class WalletService {
     /// Full scan (first run / after restore): walks the keychains with a stop-gap.
     func fullScan() throws {
         let request = try wallet.startFullScan().build()
-        let update = try esplora.fullScan(request: request, stopGap: 20, parallelRequests: 4)
+        let update = try chain.fullScan(request: request, stopGap: 20)
         try wallet.applyUpdate(update: update)
         _ = try wallet.persist(persister: persister)
     }
 
     /// Fee-rate estimate for a given confirmation target, with a 1 sat/vB floor.
     func estimatedFeeRate(targetBlocks: UInt16 = 6) -> UInt64 {
-        guard let estimates = try? esplora.getFeeEstimates() else { return 1 }
-        let satVb = estimates[targetBlocks] ?? estimates.values.min() ?? 1
-        return max(1, UInt64(satVb.rounded()))
+        chain.feeRate(targetBlocks: targetBlocks)
     }
 
     // MARK: - Timelock status
 
     /// Compute when the heir path unlocks, from confirmed UTXO heights + CSV delay.
     ///
-    /// Each UTXO's clock starts at its own confirmation height; the heir can claim a
-    /// UTXO once it has `delayBlocks` confirmations. The wallet-level "inheritance
-    /// unlocks" moment is the earliest such height across all UTXOs — after that, at
-    /// least part of the funds is heir-claimable, so the countdown shows the minimum.
+    /// BIP-68 arithmetic: a UTXO confirmed in block `h` with CSV value `N` can be
+    /// spent in any block `>= h + N`; Bitcoin Core admits the spend to the mempool
+    /// as soon as it would be valid in the *next* block, i.e. once the chain tip
+    /// reaches `h + N - 1` (equivalently: the UTXO has exactly `N` confirmations).
+    /// `earliestExpiryHeight` is therefore `h + N - 1` — the first tip height at
+    /// which the heir's claim is broadcastable — matching `prepareHeirClaim`'s
+    /// `confirmations >= N` gate exactly.
+    ///
+    /// Each UTXO's clock starts at its own confirmation height; the wallet-level
+    /// countdown shows the earliest across all UTXOs (the first moment *any* part
+    /// of the funds becomes heir-claimable).
     func lockStatus() -> LockStatus {
         let tip = wallet.latestCheckpoint().height
         var earliest: UInt32?
@@ -203,7 +208,7 @@ final class WalletService {
         for utxo in wallet.listUnspent() {
             switch utxo.chainPosition {
             case let .confirmed(cbt, _):
-                let expiry = cbt.blockId.height + meta.delayBlocks
+                let expiry = cbt.blockId.height + meta.delayBlocks - 1
                 earliest = min(earliest ?? expiry, expiry)
             case .unconfirmed:
                 hasUnconfirmed = true
@@ -231,12 +236,27 @@ final class WalletService {
 
     // MARK: - Owner flows
 
+    /// True when the wallet holds at least one confirmed UTXO.
+    private var hasConfirmedUTXO: Bool {
+        wallet.listUnspent().contains { utxo in
+            if case .confirmed = utxo.chainPosition { return true }
+            return false
+        }
+    }
+
     /// Build + sign the heartbeat: spend every UTXO back to our own next external
     /// address, through the owner branch. Confirmation restarts every UTXO's CSV
     /// clock — the on-chain equivalent of "I'm still here."
+    ///
+    /// Unconfirmed UTXOs are excluded from every owner-side build: their CSV clock
+    /// hasn't started (so a heartbeat of them is meaningless) and, defensively,
+    /// spending an unconfirmed output of a CSV descriptor triggers an unchecked
+    /// height addition inside bdk_wallet 3.0 (`utils.rs` `Older::check_older`) that
+    /// aborts the process. See SECURITY_REVIEW.md.
     func prepareHeartbeat(feeRate satPerVb: UInt64) throws -> PreparedTransaction {
         guard meta.role == .owner else { throw HeirloomError.policyPathNotFound("owner key") }
         guard !wallet.listUnspent().isEmpty else { throw HeirloomError.nothingToSpend }
+        guard hasConfirmedUTXO else { throw HeirloomError.waitingForConfirmation }
 
         let destination = wallet.revealNextAddress(keychain: .external)
         let paths = try PolicyPaths.resolve(wallet: wallet, keychain: .external)
@@ -245,6 +265,7 @@ final class WalletService {
         let psbt = try TxBuilder()
             .drainWallet()
             .drainTo(script: destination.address.scriptPubkey())
+            .excludeUnconfirmed()
             .policyPath(policyPath: paths.owner, keychain: .external)
             .policyPath(policyPath: changePaths.owner, keychain: .internal)
             .version(version: 2)
@@ -264,11 +285,13 @@ final class WalletService {
         guard let dest = try? Address(address: address, network: meta.network.bdkNetwork) else {
             throw HeirloomError.invalidAddress(address)
         }
+        guard hasConfirmedUTXO else { throw HeirloomError.waitingForConfirmation }
         let paths = try PolicyPaths.resolve(wallet: wallet, keychain: .external)
         let changePaths = try PolicyPaths.resolve(wallet: wallet, keychain: .internal)
 
         let psbt = try TxBuilder()
             .addRecipient(script: dest.scriptPubkey(), amount: Amount.fromSat(satoshi: amountSats))
+            .excludeUnconfirmed()
             .policyPath(policyPath: paths.owner, keychain: .external)
             .policyPath(policyPath: changePaths.owner, keychain: .internal)
             .version(version: 2)
@@ -370,7 +393,7 @@ final class WalletService {
 
     func broadcast(_ prepared: PreparedTransaction) throws -> String {
         do {
-            try esplora.broadcast(transaction: prepared.transaction)
+            try chain.broadcast(prepared.transaction)
         } catch {
             throw HeirloomError.broadcastFailed(error.localizedDescription)
         }

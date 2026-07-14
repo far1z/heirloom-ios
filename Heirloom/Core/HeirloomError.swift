@@ -10,6 +10,7 @@ enum HeirloomError: LocalizedError, Equatable {
     case policyPathNotFound(String)
     case timelockNotExpired(blocksRemaining: UInt32)
     case nothingToSpend
+    case waitingForConfirmation
     case invalidAddress(String)
     case broadcastFailed(String)
 
@@ -33,6 +34,8 @@ enum HeirloomError: LocalizedError, Equatable {
             return "The inheritance timelock has not expired yet. \(remaining) more blocks (~\(remaining / 144) days) are required."
         case .nothingToSpend:
             return "There are no confirmed funds to spend."
+        case .waitingForConfirmation:
+            return "Your funds are still waiting for their first confirmation. Try again in a few minutes — the inheritance clock (and heartbeats) only apply to confirmed coins."
         case .invalidAddress(let addr):
             return "Invalid Bitcoin address for this network: \(addr)"
         case .broadcastFailed(let msg):
