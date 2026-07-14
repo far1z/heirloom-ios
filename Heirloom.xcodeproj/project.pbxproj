@@ -34,6 +34,7 @@
 		E02DA86AACD9A10F2E29CBD8 /* ChainClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F56D3F4F72FD6F23214F4CE /* ChainClient.swift */; };
 		EE157735E91A036F24DDB405 /* RegtestLifecycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94009829CA89C5574B27FBF /* RegtestLifecycleTests.swift */; };
 		EF309334B00DEE3BB038AA1F /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F021B48140156947B064D0B1 /* KeychainStore.swift */; };
+		F022BE947FB77690700CE4F7 /* SignetLifecycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1040D4C3DED45B1B4B99C926 /* SignetLifecycleTests.swift */; };
 		F3EBAFC7C0A195E9EE6A5BC0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C172D4EB3D58D18F6707BA05 /* SettingsView.swift */; };
 		FBB5B22B9E7521347D8E4E0B /* OwnerWizardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CF6F5F18F26FC98B8703AF /* OwnerWizardView.swift */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		016E05507E9B17C720EF4870 /* WalletMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMeta.swift; sourceTree = "<group>"; };
+		1040D4C3DED45B1B4B99C926 /* SignetLifecycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignetLifecycleTests.swift; sourceTree = "<group>"; };
 		19429DAFB1AD0136CC878BCE /* DelayPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPreset.swift; sourceTree = "<group>"; };
 		1A6DFEB4172A34A8218955DD /* PolicyAndTransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyAndTransactionTests.swift; sourceTree = "<group>"; };
 		1B8FAF185C19EF0E77F131DB /* HeartbeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartbeatView.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				B0CE8A490E66BE81860643FE /* DescriptorTests.swift */,
 				1A6DFEB4172A34A8218955DD /* PolicyAndTransactionTests.swift */,
 				A94009829CA89C5574B27FBF /* RegtestLifecycleTests.swift */,
+				1040D4C3DED45B1B4B99C926 /* SignetLifecycleTests.swift */,
 				A905C620477324142BCD5188 /* TestFixtures.swift */,
 			);
 			path = HeirloomTests;
@@ -312,6 +315,7 @@
 				DFE046493B3F874D5F6A7F28 /* DescriptorTests.swift in Sources */,
 				A8AAF718452D7E6EDD12784A /* PolicyAndTransactionTests.swift in Sources */,
 				EE157735E91A036F24DDB405 /* RegtestLifecycleTests.swift in Sources */,
+				F022BE947FB77690700CE4F7 /* SignetLifecycleTests.swift in Sources */,
 				4159A252FD95F78D27538DA7 /* TestFixtures.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

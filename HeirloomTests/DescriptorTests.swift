@@ -147,6 +147,22 @@ final class DescriptorTests: XCTestCase {
         XCTAssertNoThrow(try KeyService.parseMnemonic(a))
     }
 
+    // MARK: Endpoint policy
+
+    func testEndpointSecurityPolicy() {
+        // Encrypted transports: anywhere.
+        XCTAssertTrue(ChainClient.isAcceptableEndpoint("https://mempool.space/signet/api"))
+        XCTAssertTrue(ChainClient.isAcceptableEndpoint("ssl://electrum.example.com:50002"))
+        // Plaintext transports: loopback only.
+        XCTAssertTrue(ChainClient.isAcceptableEndpoint("tcp://127.0.0.1:60401"))
+        XCTAssertTrue(ChainClient.isAcceptableEndpoint("http://localhost:3002"))
+        XCTAssertFalse(ChainClient.isAcceptableEndpoint("tcp://evil.example.com:50001"))
+        XCTAssertFalse(ChainClient.isAcceptableEndpoint("http://mempool.space/api"))
+        // Garbage.
+        XCTAssertFalse(ChainClient.isAcceptableEndpoint("ftp://x"))
+        XCTAssertFalse(ChainClient.isAcceptableEndpoint(""))
+    }
+
     // MARK: Recovery kit
 
     func testRecoveryKitRoundTrip() throws {

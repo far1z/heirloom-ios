@@ -84,8 +84,14 @@ struct WalletMetaStore {
     }
 
     /// Wallet database (BDK SQLite) path, colocated with the metadata.
+    ///
+    /// The database holds only public data (public descriptors, chain state) —
+    /// BDK strips secret keys before persisting — but public descriptors reveal
+    /// the whole wallet history, so the directory is excluded from device
+    /// backups just like the metadata file.
     static func walletDBPath(role: WalletRole) -> String {
-        directory.appendingPathComponent("wallet-\(role.rawValue).sqlite").path
+        excludeFromBackup(directory)
+        return directory.appendingPathComponent("wallet-\(role.rawValue).sqlite").path
     }
 
     static func deleteWalletDBs() {

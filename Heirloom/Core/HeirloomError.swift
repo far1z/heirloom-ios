@@ -27,7 +27,7 @@ enum HeirloomError: LocalizedError, Equatable {
         case .invalidMnemonic:
             return "That recovery phrase is not valid. Check every word and try again."
         case .invalidEndpoint(let url):
-            return "Invalid server URL: \(url)"
+            return "Invalid or insecure server URL: \(url). Use https:// (Esplora) or ssl:// (Electrum); plaintext http:// and tcp:// are allowed only for 127.0.0.1."
         case .policyPathNotFound(let what):
             return "Could not locate the \(what) spending path in the wallet policy."
         case .timelockNotExpired(let remaining):

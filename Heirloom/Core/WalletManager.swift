@@ -157,7 +157,8 @@ final class WalletManager: ObservableObject {
 
     func updateEsploraURL(_ url: String) throws {
         guard var meta, let service else { throw HeirloomError.walletNotInitialized }
-        guard let parsed = URL(string: url), parsed.scheme == "https" || parsed.scheme == "http" else {
+        // https:// and ssl:// anywhere; plaintext http:///tcp:// only to loopback.
+        guard ChainClient.isAcceptableEndpoint(url) else {
             throw HeirloomError.invalidEndpoint(url)
         }
         meta.esploraURL = url

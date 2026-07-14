@@ -14,6 +14,9 @@ enum ChainClient {
     case electrum(ElectrumClient)
 
     init(endpoint: String) throws {
+        guard Self.isAcceptableEndpoint(endpoint) else {
+            throw HeirloomError.invalidEndpoint(endpoint)
+        }
         if endpoint.hasPrefix("tcp://") || endpoint.hasPrefix("ssl://") {
             self = .electrum(try ElectrumClient(url: endpoint))
         } else if endpoint.hasPrefix("http://") || endpoint.hasPrefix("https://") {
@@ -21,6 +24,20 @@ enum ChainClient {
         } else {
             throw HeirloomError.invalidEndpoint(endpoint)
         }
+    }
+
+    /// A chain server never sees keys, but a *lying* one can hide UTXOs and
+    /// transactions — including heartbeats — and skew fee estimates. Plaintext
+    /// transports invite exactly that tampering, so they are only accepted for
+    /// loopback (regtest/self-hosted development).
+    static func isAcceptableEndpoint(_ endpoint: String) -> Bool {
+        if endpoint.hasPrefix("https://") || endpoint.hasPrefix("ssl://") { return true }
+        if endpoint.hasPrefix("http://") || endpoint.hasPrefix("tcp://") {
+            let rest = endpoint.components(separatedBy: "://").dropFirst().joined()
+            let host = rest.split(separator: "/").first?.split(separator: ":").first.map(String.init) ?? ""
+            return host == "127.0.0.1" || host == "localhost" || host == "::1"
+        }
+        return false
     }
 
     func sync(request: SyncRequest) throws -> Update {

@@ -69,11 +69,16 @@ struct WarningBox: View {
     }
 }
 
-/// 12-word seed grid.
+/// 12-word seed grid. Always `privacySensitive` so iOS redacts it in the app
+/// switcher and system screen captures where supported.
 struct SeedPhraseGrid: View {
     let words: [String]
 
     var body: some View {
+        grid.privacySensitive()
+    }
+
+    private var grid: some View {
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
             ForEach(Array(words.enumerated()), id: \.offset) { index, word in
                 HStack(spacing: 6) {
