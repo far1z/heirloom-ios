@@ -1,0 +1,10 @@
+.DS_Store
+xcuserdata/
+*.xcworkspace/xcuserdata/
+DerivedData/
+build/
+*.ipa
+*.dSYM.zip
+.build/
+# XcodeGen output is regenerated from project.yml
+Heirloom.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
